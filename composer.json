@@ -1,5 +1,5 @@
 {
-    "name": "rabobank/omnikassa-sdk",
+    "name": "rickmaas/omnikassa-php-sdk",
     "type": "library",
     "license": "MIT",
     "description": "Rabobank OmniKassa SDK for PHP",
