@@ -66,9 +66,13 @@ class GuzzleRESTTemplate implements RESTTemplate
                 'query' => $parameters,
             ]);
         } catch (ClientException $e) {
-            $response = $e->getResponse()->getBody()->getContents();
-            $message = sprintf('%s [body] %s', $e->getMessage(), $response);
-            throw new ClientException($message, $e->getRequest(), $e->getResponse());
+            $response = $e->getResponse();
+            if (null === $response) {
+                throw $e;
+            }
+            $responseBody = $response->getBody()->getContents();
+            $message = sprintf('%s [body] %s', $e->getMessage(), $responseBody);
+            throw new ClientException($message, $e->getRequest(), $response);
         }
 
         return $response->getBody()->getContents();
@@ -90,9 +94,13 @@ class GuzzleRESTTemplate implements RESTTemplate
                 'json' => $body,
             ]);
         } catch (ClientException $e) {
-            $response = $e->getResponse()->getBody()->getContents();
-            $message = sprintf('%s [body] %s', $e->getMessage(), $response);
-            throw new ClientException($message, $e->getRequest(), $e->getResponse());
+            $response = $e->getResponse();
+            if (null === $response) {
+                throw $e;
+            }
+            $responseBody = $response->getBody()->getContents();
+            $message = sprintf('%s [body] %s', $e->getMessage(), $responseBody);
+            throw new ClientException($message, $e->getRequest(), $response);
         }
 
         return $response->getBody()->getContents();
